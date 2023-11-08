@@ -1,45 +1,23 @@
-"use client"
-import { MainSearchModel, mainSearchSchema } from '@/schema/main-search-schema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { MainSearchModel } from '@/schema/main-search-schema';
 import React from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
 import Input from './Form/Input';
 import Select from './Form/Select';
-import { useRouter } from 'next/navigation';
-import { objectToQueryString } from '@/utils/objectToQueryString';
-
-const defaultValue: MainSearchModel = {
-    adType: "Buy",
-    state: "",
-    township: "",
-    propertyType: "",
-    minPrice: 0,
-    maxPrice: 100000
-}
+import { UseFormRegister, FieldErrors, UseFormWatch } from 'react-hook-form'
 
 const adTypeOptions = [{ label: "Buy", value: "Buy" }, { label: "Rent", value: "Rent" }];
 
 type Props = {
     locations: Array<{ label: string, value: string, townships: Array<{ label: string, value: string }> }>,
     propertyTypes: Array<{ label: string, value: string }>,
+    register: UseFormRegister<MainSearchModel>,
+    errors: FieldErrors<MainSearchModel>,
+    watch: UseFormWatch<MainSearchModel>
 }
 
-const MainSearchForm: React.FC<Props> = ({ locations, propertyTypes }) => {
-
-    const router = useRouter()
-
-    const { register, handleSubmit, formState: { errors }, watch } = useForm({
-        defaultValues: defaultValue,
-        resolver: zodResolver(mainSearchSchema)
-    });
-
-    const onSubmit: SubmitHandler<MainSearchModel> = (data) => {
-        const query = objectToQueryString(data);
-        router.push("/properties?" + query);
-    }
+const MainSearchForm: React.FC<Props> = ({ locations, propertyTypes, register, errors, watch }) => {
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-600 rounded-sm p-4 my-20 sm:mx-2 md:mx-20 xl:mx-40" noValidate>
+        <div className="bg-gray-600 rounded-sm p-4 my-20 sm:mx-2 md:mx-20 xl:mx-40">
             <div className='flex max-md:flex-col max-md:items-stretch items-center justify-stretch gap-2'>
                 <div className="flex-1">
                     <Select id='adType' name='adType' label='Rent or Buy' options={adTypeOptions} register={register} required={true} error={errors?.adType?.message || ""} placeholder='Rent or Buy' disabled={false} />
@@ -67,7 +45,7 @@ const MainSearchForm: React.FC<Props> = ({ locations, propertyTypes }) => {
                     <button type='submit' className='w-full bg-sky-600 rounded-sm p-2.5 text-white'>Search</button>
                 </div>
             </div>
-        </form>
+        </div>
     )
 }
 

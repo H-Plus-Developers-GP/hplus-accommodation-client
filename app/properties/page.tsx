@@ -1,15 +1,13 @@
 import Link from "next/link";
 import AdvertisementGrid from "./components/AdvertisementGrid";
-import { AdvertisementDocument } from "@/model/advertisement";
-import MainSearchForm from "@/components/MainSearchForm";
+import GenericForm from "@/components/GenericForm";
+import { getAdvertisement, getLocation, getPropertyType } from "@/services";
 
-async function getAdvertisement(): Promise<Array<AdvertisementDocument>> {
-    const res = await fetch("http://localhost:3000/api/advertisement");
-    if (!res.ok) {
-        throw new Error("Fail to fetch data");
-    }
-    return res.json();
+async function getData() {
+    const data = await Promise.all([getLocation(), getPropertyType()]);
+    return data;
 }
+
 
 const PropertiesPage = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
     const adType = searchParams.adType;
@@ -20,6 +18,7 @@ const PropertiesPage = async ({ searchParams }: { searchParams: { [key: string]:
     const maxPrice = searchParams.maxPrice;
 
     const advertisements = await getAdvertisement();
+    const [locations, propertyTypes] = await getData();
 
     return (
         <main>
@@ -33,12 +32,12 @@ const PropertiesPage = async ({ searchParams }: { searchParams: { [key: string]:
                     </div>
                 </div>
             </div>
-            <div className="flex items-start justify-stretch gap-8 sm:mx-2 md:mx-20 xl:mx-40 my-3">
+            <div className="flex max-md:flex-col items-start justify-stretch gap-8 max-sm:mx-2 sm:mx-2 md:mx-20 xl:mx-40 my-3">
                 <div className="flex-1">
                     <AdvertisementGrid advertisements={advertisements} />
                 </div>
                 <div className="w-96 p-4 bg-gray-600">
-
+                    <GenericForm mode="side" locations={locations} propertyTypes={propertyTypes} />
                 </div>
             </div>
         </main>

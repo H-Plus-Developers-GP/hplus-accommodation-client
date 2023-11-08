@@ -33,7 +33,7 @@ const AdvertisementGridItem: React.FC<Props> = ({ advertisement }) => {
                     <h3 className='text-xl font-bold'>{advertisement.title}</h3>
                     <p className='text-sm font-semibold text-gray-600'>{advertisement.subTitle}</p>
                 </div>
-                <div className='flex items-center justify-between mt-2 pt-2 border-t border-gray-200'>
+                <div className='flex items-center justify-between flex-wrap mt-2 pt-2 border-t border-gray-200'>
                     {
                         (advertisement.property.info.area.area || advertisement.property.info.area.acre) &&
                         <ItemAmenities icon={<RiLayoutMasonryLine />} value={`${advertisement.property.info.area.area || advertisement.property.info.area.acre} sq-ft`} />
