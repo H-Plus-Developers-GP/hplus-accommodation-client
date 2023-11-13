@@ -20,3 +20,5 @@ export const connectDB = async () => {
         console.log(error);
     }
 }
+
+const something = "new";
