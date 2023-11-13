@@ -3,12 +3,13 @@ import React from 'react'
 import AdvertisementGridItem from './AdvertisementGridItem'
 
 type Props = {
-  advertisements: Array<AdvertisementDocument>
+  advertisements: Array<AdvertisementDocument>,
+  cols?: string,
 }
 
-const AdvertisementGrid: React.FC<Props> = ({ advertisements }) => {
+const AdvertisementGrid: React.FC<Props> = ({ advertisements, cols = "2" }) => {
   return (
-    <div className='grid grid-cols-2 max-sm:grid-cols-1 gap-8'>
+    <div className={`grid grid-cols-${cols} max-sm:grid-cols-1 gap-8`}>
       {
         advertisements.map((advertisement) => {
           return <AdvertisementGridItem key={advertisement._id} advertisement={advertisement} />

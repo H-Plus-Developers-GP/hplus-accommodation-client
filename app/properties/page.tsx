@@ -11,11 +11,6 @@ async function getData() {
 
 const PropertiesPage = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
     const adType = searchParams.adType;
-    const state = searchParams.state;
-    const township = searchParams.township;
-    const propertyType = searchParams.propertyType;
-    const minPrice = searchParams.minPrice;
-    const maxPrice = searchParams.maxPrice;
 
     const advertisements = await getAdvertisement();
     const [locations, propertyTypes] = await getData();

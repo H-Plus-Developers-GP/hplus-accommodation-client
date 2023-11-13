@@ -24,3 +24,11 @@ export async function getAdvertisement(): Promise<Array<AdvertisementDocument>> 
     }
     return res.json();
 }
+
+export async function getAdvertisementById(id: string): Promise<AdvertisementDocument> {
+    const res = await fetch("http://localhost:3000/api/advertisement/" + id);
+    if (!res.ok) {
+        throw new Error("Fail to fetch data");
+    }
+    return res.json();
+} 
