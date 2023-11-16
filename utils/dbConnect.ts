@@ -12,7 +12,7 @@ export const connectDB = async () => {
 
     try {
         await mongoose.connect(process.env.MONDODB_URI as string, {
-            dbName: "hplus-accommodation-db",
+            dbName: process.env.DB_NAME,
         })
         isConnected = true;
         console.log('DB CONNECTED')

@@ -15,7 +15,7 @@ type Props = {
 
 const AdvertisementDetail: React.FC<Props> = ({ advertisement }) => {
   return <div>
-    <Image quality={100} src={advertisement.property.imgs[0]} alt={advertisement.property.name} width={0} height={200} style={{ width: '100%', height: '200px' }} className='object-cover' />
+    <Image quality={100} src={advertisement.property.imgs[0]} alt={advertisement.property.name} width={0} height={0} style={{ width: '100%', height: 'auto', maxHeight: "400px" }} className='object-cover' />
     <p className='text-red-600 text-xs font-light my-4'>{advertisement.property.info.type.name} to {advertisement.adType}</p>
     <h3 className='text-xl font-bold my-4'>{advertisement.title}</h3>
     <p className='text-sm font-semibold text-gray-600 my-4'>{advertisement.subTitle}</p>

@@ -7,9 +7,9 @@ type Props = {
   cols?: string,
 }
 
-const AdvertisementGrid: React.FC<Props> = ({ advertisements, cols = "2" }) => {
+const AdvertisementGrid: React.FC<Props> = ({ advertisements }) => {
   return (
-    <div className={`grid grid-cols-${cols} max-sm:grid-cols-1 gap-8`}>
+    <div className={`grid grid-cols-2 max-sm:grid-cols-1 gap-8`}>
       {
         advertisements.map((advertisement) => {
           return <AdvertisementGridItem key={advertisement._id} advertisement={advertisement} />
