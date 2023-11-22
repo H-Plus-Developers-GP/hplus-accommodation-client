@@ -18,7 +18,7 @@ export const GET = async (
   try {
     connectDB();
     const advertisement = await AdvertisementModel.findOne({
-      _id: params.id,
+      adId: params.id,
     }).populate([
       { path: "otherInfo", select: "label", model: OtherInfoModel },
       {

@@ -1,19 +1,37 @@
+"use client";
 import Link from "next/link";
 import AdvertisementGrid from "./components/AdvertisementGrid";
 import GenericForm from "@/components/GenericForm";
 import { getAdvertisement, getLocation, getPropertyType } from "@/services";
+import { useEffect, useState } from "react";
+import { AdvertisementDocument } from "@/model/advertisement";
+import { useSearchParams } from "next/navigation";
 
-async function getData() {
-    const data = await Promise.all([getLocation(), getPropertyType()]);
-    return data;
-}
+// async function getData() {
+//     const data = await Promise.all([getLocation(), getPropertyType()]);
+//     return data;
+// }
 
 
-const PropertiesPage = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
-    const adType = searchParams.adType;
+const PropertiesPage = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+    const search = useSearchParams();
+    const adType = search.get("adType");
 
-    const advertisements = await getAdvertisement();
-    const [locations, propertyTypes] = await getData();
+    // const advertisements = await getAdvertisement();
+    // const [locations, propertyTypes] = await getData();
+    const [advertisements, setAdvertisements] = useState<Array<AdvertisementDocument>>([]);
+
+    const [locations, setLocations] = useState<Array<{ label: string, value: string, townships: Array<{ label: string, value: string }> }>>([]);
+    const [propertyTypes, setPropertyTypes] = useState<Array<{ label: string, value: string }>>([]);
+    useEffect(() => {
+        Promise.all([getLocation(), getPropertyType(), getAdvertisement()])
+            .then(data => {
+                setLocations(data[0]);
+                setPropertyTypes(data[1]);
+                setAdvertisements(data[2])
+            })
+            .catch(error => console.log(error));
+    }, []);
 
     return (
         <main>

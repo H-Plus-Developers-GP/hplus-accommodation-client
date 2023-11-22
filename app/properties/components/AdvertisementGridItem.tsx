@@ -1,7 +1,7 @@
 import { AdvertisementDocument } from '@/model/advertisement'
 import Image from 'next/image'
 import Link from 'next/link';
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { FaBath, FaBed, FaBuildingUser } from 'react-icons/fa6';
 import { RiLayoutMasonryLine } from "react-icons/ri";
 import ItemAmenities from './ItemAmenities';
@@ -12,7 +12,7 @@ type Props = {
 
 const AdvertisementGridItem: React.FC<Props> = ({ advertisement }) => {
     return (
-        <Link href={`/properties/${advertisement._id}`}>
+        <Link href={`/properties/${advertisement.adId}`}>
             <div className='bg-white shadow-sm cursor-pointer'>
                 <div className='relative bg-black bg-opacity-10'>
                     <Image quality={100} src={advertisement.property.imgs[0]} alt={advertisement.property.name} width={0} height={100} style={{ width: '100%', height: '200px' }} className='object-cover' />

@@ -5,7 +5,6 @@ import { getAdvertisement, getAdvertisementById, getLocation, getPropertyType } 
 import Link from 'next/link';
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import AdvertisementGrid from '../components/AdvertisementGrid';
 import AdvertisementDetail from '../components/AdvertisementDetail';
 import AdvertisementGridItem from '../components/AdvertisementGridItem';
 
@@ -62,9 +61,9 @@ const PropertyDetail = () => {
         <h3 className='text-xl font-bold my-8'>RECOMMENDED PROPERTIES</h3>
         <div className='flex max-md:flex-col items-start justify-evenly gap-8'>
           {
-            recommentedAds.filter((item) => item._id !== id).map((advertisement) => {
-              return <div className="flex-1" key={advertisement._id}>
-                <AdvertisementGridItem key={advertisement._id} advertisement={advertisement} />
+            recommentedAds.filter((item) => item.adId !== id).map((advertisement) => {
+              return <div className="flex-1" key={advertisement.adId}>
+                <AdvertisementGridItem advertisement={advertisement} />
               </div>
             })
           }
