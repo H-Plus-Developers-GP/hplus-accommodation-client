@@ -5,7 +5,6 @@ export async function getLocation(): Promise<Array<{ label: string, value: strin
     if (!res.ok) {
         throw new Error("Fail to fetch data");
     }
-
     return res.json();
 }
 
