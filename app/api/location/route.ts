@@ -2,6 +2,7 @@ import StateModel from "@/model/state";
 import TownshipModel, { TownshipDocument } from "@/model/township";
 import { connectDB } from "@/utils/dbConnect"
 
+export const dynamic = 'force-dynamic';
 export const GET = async () => {
     try {
         await connectDB();

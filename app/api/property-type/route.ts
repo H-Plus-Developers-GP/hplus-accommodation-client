@@ -1,6 +1,6 @@
 import PropertyTypeModel from "@/model/property-type";
 import { connectDB } from "@/utils/dbConnect"
-
+export const dynamic = 'force-dynamic';
 export const GET = async () => {
     try {
         await connectDB();

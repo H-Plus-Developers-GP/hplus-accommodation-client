@@ -11,6 +11,7 @@ import UserModel from "@/model/user";
 import WaterSystemModel from "@/model/water-system";
 import { connectDB } from "@/utils/dbConnect"
 
+export const dynamic = 'force-dynamic';
 export const GET = async () => {
     try {
         connectDB();
