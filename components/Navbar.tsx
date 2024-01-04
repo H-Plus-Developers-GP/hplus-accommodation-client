@@ -1,8 +1,11 @@
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { BsTelephoneFill } from "react-icons/bs";
+import Logout from "./Logout";
 
-const Navbar = () => {
+const Navbar = async () => {
+  const session = await getServerSession();
+  console.log(session);
   return (
     <nav className="bg-white flex items-center justify-between sm:mx-2 md:mx-20 xl:mx-40">
       <div className="flex">
@@ -18,18 +21,30 @@ const Navbar = () => {
       </div>
       <ul className="flex items-center gap-4">
         <li>
-          <Link href="/" className="font-bold">Rent</Link>
+          <Link href="/" className="font-bold">
+            Rent
+          </Link>
         </li>
         <li>
-          <Link href="/" className="font-bold">Buy</Link>
+          <Link href="/" className="font-bold">
+            Buy
+          </Link>
         </li>
         <li>
-          <Link href="/" className="font-bold">Contact Us</Link>
+          <Link href="/" className="font-bold">
+            Contact Us
+          </Link>
         </li>
       </ul>
-      <span className="max-sm:hidden cursor-pointer">
-        <BsTelephoneFill className="inline" /> <span className="font-bold">Contact Us:</span> <span className="text-blue-600">+959-780878870</span>
-      </span>
+      <div className="max-sm:hidden cursor-pointer">
+        {!!session ? (
+          <Logout />
+        ) : (
+          <Link href="/auth/signin">
+            <button>Sign In</button>
+          </Link>
+        )}
+      </div>
     </nav>
   );
 };
