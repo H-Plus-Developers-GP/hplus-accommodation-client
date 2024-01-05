@@ -3,6 +3,7 @@ import Input from "@/components/Form/Input";
 import { SignUpFormInput, signupSchema } from "@/schema/sign-up";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -13,6 +14,7 @@ const defaultValues: SignUpFormInput = {
 };
 
 const SignUpForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -27,7 +29,7 @@ const SignUpForm = () => {
       body: JSON.stringify(data),
     });
     const resData = await response.json();
-    console.log(resData);
+    router.push("/auth/signin");
   };
   return (
     <div className="border lg:w-1/2 max-lg:w-full rounded-md shadow-sm bg-gray-600 p-4 my-4 sm:mx-2 md:mx-20 xl:mx-40">
