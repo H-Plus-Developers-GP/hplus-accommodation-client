@@ -5,6 +5,14 @@ export interface CustomerInput {
   username: string;
   password: string;
   phone: string;
+  telegram: {
+    id: number;
+    is_bot: boolean;
+    first_name: string;
+    last_name: string;
+    username: string;
+    language_code: string;
+  };
 }
 
 export interface CustomerDocument extends CustomerInput, mongoose.Document {
@@ -12,6 +20,15 @@ export interface CustomerDocument extends CustomerInput, mongoose.Document {
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<Boolean>;
 }
+
+const telegramSchema = new mongoose.Schema({
+  id: Number,
+  is_bot: Boolean,
+  first_name: String,
+  last_name: String,
+  username: String,
+  language_code: String,
+}, { _id: false });
 
 const customerSchema = new mongoose.Schema(
   {
@@ -28,6 +45,11 @@ const customerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    telegram: {
+      type: telegramSchema,
+      required: false,
+      default: null,
+    }
   },
   { timestamps: true }
 );
