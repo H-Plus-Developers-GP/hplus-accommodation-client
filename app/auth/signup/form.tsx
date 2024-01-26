@@ -4,7 +4,7 @@ import { SignUpFormInput, signupSchema } from "@/schema/sign-up";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 const defaultValues: SignUpFormInput = {
@@ -15,6 +15,8 @@ const defaultValues: SignUpFormInput = {
 
 const SignUpForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -24,12 +26,19 @@ const SignUpForm = () => {
     resolver: zodResolver(signupSchema),
   });
   const submitHandler: SubmitHandler<SignUpFormInput> = async (data) => {
-    const response = await fetch("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    const resData = await response.json();
-    router.push("/auth/signin");
+    try {
+      setLoading(true);
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      const resData = await response.json();
+      router.push("/auth/signin");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="border lg:w-1/2 max-lg:w-full rounded-md shadow-sm bg-gray-600 p-4 my-4 sm:mx-2 md:mx-20 xl:mx-40">
@@ -73,8 +82,9 @@ const SignUpForm = () => {
         <button
           className="my-2 bg-white text-gray-600 py-2 w-full rounded-md"
           type="submit"
+          disabled={loading}
         >
-          Sign In
+          {loading ? "Signing Up ...." : "Sign Up"}
         </button>
       </form>
     </div>

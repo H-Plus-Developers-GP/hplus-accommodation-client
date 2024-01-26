@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <>
             <div className="bg-gray-600">
-                <div className="flex gap-4 sm:mx-2 md:mx-20 xl:mx-40 py-5 text-white">
+                <div className="flex gap-4 sm:mx-2 md:mx-20 xl:mx-40 py-5 text-white max-md:flex-col max-md:px-2">
                     <div className="flex-1">
                         <h4>CONTACTS</h4>
                         <p className="text-sm my-2 text-gray-400">We are the leading real estate and rental marketplace dedicated to empowering consumers with data.

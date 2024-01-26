@@ -94,7 +94,7 @@ const PropertyDetail = () => {
         <h3 className="text-xl font-bold my-8">RECOMMENDED PROPERTIES</h3>
         <div className="flex max-md:flex-col items-start justify-evenly gap-8">
           {recommentedAds
-            .slice(0, 5)
+            .slice(0, 3)
             .filter((item) => item.adId !== id)
             .map((advertisement) => {
               return (
